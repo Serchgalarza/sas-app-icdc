@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage("verification des outils"){
+        stage("Verification des outils"){
             steps{
                 bat '''
                     docker version 
@@ -18,11 +18,18 @@ pipeline{
             }
         }
 
-        stage("Démarrage du Docker"){
+        stage("Demarrage du Docker"){
             steps{
                 //bat 'docker compose up -d --no-color --wait'
-                bat 'dcoker compose ps -a'
+                bat 'docker compose ps -a'
             }
+        }
+    }
+
+    post {
+        always {
+            bat 'docker compose down --remove-orphans -v'
+            bat 'docker compose ps -a'
         }
     }
 }
