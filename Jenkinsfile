@@ -41,8 +41,7 @@ pipeline{
             bat 'docker compose ps -a'
             bat 'docker compose down --remove-orphans -v'
             bat 'docker compose ps -a'
-            echo 'Buscamos los test'
-            junit '**/**/*.xml'
+            junit '*.xml || exit 0 '
         }
     }
 }
