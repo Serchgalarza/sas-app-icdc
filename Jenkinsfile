@@ -22,7 +22,6 @@ pipeline{
                 echo 'Pruebas docker'
                 bat 'docker system prune -a --volumes -f'
                 bat 'docker-compose up -d'
-                bat 'docker compose ps -a'
             }
         }
 
@@ -44,6 +43,7 @@ pipeline{
 
     post {
         always {
+            bat 'docker compose ps -a'
             bat 'docker compose down --remove-orphans -v'
             bat 'docker compose ps -a'
             echo 'Buscamos los test'
