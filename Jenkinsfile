@@ -19,16 +19,16 @@ pipeline{
 
         stage("Demarrage du Docker"){
             steps{
-                bat 'docker system prune -a --volumes -f'
+                //bat 'docker system prune -a --volumes -f'
                 //sh 'docker-compose up -d --no-color'
-                bat 'docker compose ps -a'
+                //bat 'docker compose ps -a'
             }
         }
 
         stage('Despliegue de Artifact') {
             steps {
-                echo 'Comprecion y creaccion del artifact'
-                archiveArtifacts artifacts: 'target/users-0.0.1-SNAPSHOT.jar', 
+                echo 'Creation des artifacts'
+                archiveArtifacts artifacts: 'target/users-0.0.1-SNAPSHOT.jar', 'src/main/ui',
                    allowEmptyArchive: true,
                    fingerprint: true,
                    onlyIfSuccessful: true
@@ -38,8 +38,8 @@ pipeline{
 
     post {
         always {
-            bat 'docker compose down --remove-orphans -v'
-            bat 'docker compose ps -a'
+            //bat 'docker compose down --remove-orphans -v'
+            //bat 'docker compose ps -a'
             //echo 'Buscamos los test'
             junit 'target/surefire-reports/*.xml'
         }
