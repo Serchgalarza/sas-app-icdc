@@ -19,9 +19,10 @@ pipeline{
 
         stage("Demarrage du Docker"){
             steps{
+                echo 'Pruebas docker'
                 //bat 'docker system prune -a --volumes -f'
                 //sh 'docker-compose up -d --no-color'
-                bat 'docker compose ps -a'
+                //bat 'docker compose ps -a'
             }
         }
 
