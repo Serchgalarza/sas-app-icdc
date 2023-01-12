@@ -29,7 +29,7 @@ pipeline{
         stage('Despliegue de Artifact') {
             steps {
                 echo 'Creation des artifacts'
-                archiveArtifacts artifacts: 'target/users-0.0.1-SNAPSHOT.jar', 
+                archiveArtifacts artifacts: '*/users-0.0.1-SNAPSHOT.jar', 
                    allowEmptyArchive: true,
                    fingerprint: true,
                    onlyIfSuccessful: true
