@@ -10,13 +10,14 @@ pipeline{
                     curl --version 
                 '''
             }
-        }
+        }*/
 
         stage("Nettoyage du Docker"){
             steps{
+                bat 'mvn clean install'
                 bat 'docker system prune -a --volumes -f'
             }
-        }*/
+        }
 
         stage("Demarrage du Docker"){
             steps{
