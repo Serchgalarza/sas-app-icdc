@@ -13,15 +13,15 @@ pipeline{
         }*/
         stage("Construction"){
             steps{
-                bat 'mvn clean install'
+                sh 'mvn clean install'
             }
         }
 
         stage("Demarrage du Docker"){
             steps{
-                bat 'docker system prune -a --volumes -f'
+                sh 'docker system prune -a --volumes -f'
                 //sh 'docker-compose up -d --no-color'
-                bat 'docker compose ps -a'
+                sh 'docker compose ps -a'
             }
         }
 
@@ -38,8 +38,8 @@ pipeline{
 
     post {
         always {
-            bat 'docker compose down --remove-orphans -v'
-            bat 'docker compose ps -a'
+            sh 'docker compose down --remove-orphans -v'
+            sh 'docker compose ps -a'
             eco 'Buscamos los test'
             junit 'target/surefire-reports/*.xml'
         }
