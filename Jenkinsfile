@@ -20,7 +20,7 @@ pipeline{
 
         stage("Demarrage du Docker"){
             steps{
-                //bat 'docker-compose up -d --no-color --wait'
+                bat 'docker-compose up -d --no-color'
                 bat 'docker compose ps -a'
             }
         }
@@ -32,7 +32,6 @@ pipeline{
             bat 'docker compose ps -a'
             eco 'Buscamos los test'
             junit 'target/surefire-reports/*.xml'
-            eco 'Econtramos los test'
         }
     }
 }
