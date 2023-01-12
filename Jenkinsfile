@@ -20,9 +20,9 @@ pipeline{
         stage("Demarrage du Docker"){
             steps{
                 echo 'Pruebas docker'
-                //bat 'docker system prune -a --volumes -f'
-                //sh 'docker-compose up -d --no-color'
-                //bat 'docker compose ps -a'
+                bat 'docker system prune -a --volumes -f'
+                bat 'docker-compose up -d --no-color'
+                bat 'docker compose ps -a'
             }
         }
 
@@ -44,15 +44,10 @@ pipeline{
 
     post {
         always {
-            //bat 'docker compose down --remove-orphans -v'
-            //bat 'docker compose ps -a'
+            bat 'docker compose down --remove-orphans -v'
+            bat 'docker compose ps -a'
             echo 'Buscamos los test'
             junit '**/**/*.xml'
-
-            publishCoverage (adapters: [coberturaAdapter(path : '*.xml', 
-            thresholds :  [//[thresholdTarget: 'Conditional', unhealthyThreshold: 0, unstableThreshold: 0],//Codiciones aue existen en un proyecto
-                          [thresholdTarget: 'Line', unhealthyThreshold: 85, unstableThreshold: 85],// Lineas de codigo por proyecto
-                          /*[thresholdTarget: 'Function', unhealthyThreshold: 85, unstableThreshold: 85]*/])])
         }
     }
 }
