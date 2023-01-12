@@ -14,8 +14,6 @@ pipeline{
         stage("Construction"){
             steps{
                 bat 'mvn clean install'
-                bat 'npm install nyc'
-                bat 'npm run coverage || exit 0'
             }
         }
 
@@ -51,7 +49,7 @@ pipeline{
             echo 'Buscamos los test'
             junit '**/**/*.xml'
 
-            publishCoverage (adapters: [coberturaAdapter(path : 'coverage/cobertura-coverage.xml', 
+            publishCoverage (adapters: [coberturaAdapter(path : '*.xml', 
             thresholds :  [//[thresholdTarget: 'Conditional', unhealthyThreshold: 0, unstableThreshold: 0],//Codiciones aue existen en un proyecto
                           [thresholdTarget: 'Line', unhealthyThreshold: 85, unstableThreshold: 85],// Lineas de codigo por proyecto
                           /*[thresholdTarget: 'Function', unhealthyThreshold: 85, unstableThreshold: 85]*/])])
