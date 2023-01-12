@@ -21,7 +21,7 @@ pipeline{
             steps{
                 echo 'Pruebas docker'
                 bat 'docker system prune -a --volumes -f'
-                bat 'docker-compose up -d --no-color'
+                bat 'docker-compose up -d'
                 bat 'docker compose ps -a'
             }
         }
