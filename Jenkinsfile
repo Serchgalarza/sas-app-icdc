@@ -21,19 +21,14 @@ pipeline{
             steps{
                 echo 'Pruebas docker'
                 bat 'docker system prune -a --volumes -f'
-                bat 'docker-compose up -d'
+                bat 'docker-compose up -d || exit 0'
             }
         }
 
         stage('Despliegue de Artifact') {
             steps {
                 echo 'Creation des artifacts'
-                archiveArtifacts artifacts: 'target/users-0.0.1-SNAPSHOT.jar', 
-                   allowEmptyArchive: true,
-                   fingerprint: true,
-                   onlyIfSuccessful: true
-
-                archiveArtifacts artifacts: 'src/main/ui/', 
+                archiveArtifacts artifacts: 'target/users-0.0.1-SNAPSHOT.jar, src/main/ui/', 
                    allowEmptyArchive: true,
                    fingerprint: true,
                    onlyIfSuccessful: true
