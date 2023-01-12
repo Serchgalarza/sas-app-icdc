@@ -19,7 +19,7 @@ services:
       context: ./src/main/ui
       dockerfile: Dockerfile
     ports:
-      -  4200:4200
+      -  4000:4000
     container_name: angular-front
     networks:
       -  con-full-stack
