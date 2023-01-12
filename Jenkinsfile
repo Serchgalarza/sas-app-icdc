@@ -14,6 +14,7 @@ pipeline{
         stage("Construction"){
             steps{
                 bat 'mvn clean install'
+                bat 'npm install nyc'
                 bat 'npm run coverage || exit 0'
             }
         }
