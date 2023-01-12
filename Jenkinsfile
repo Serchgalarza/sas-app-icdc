@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage("Verification des outils"){
+        /*stage("Verification des outils"){
             steps{
                 bat '''
                     docker version 
@@ -16,7 +16,7 @@ pipeline{
             steps{
                 bat 'docker system prune -a --volumes -f'
             }
-        }
+        }*/
 
         stage("Demarrage du Docker"){
             steps{
