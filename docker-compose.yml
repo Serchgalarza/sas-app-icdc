@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8090:8090
-    container_name: java-angular
+    container_name: java-back
     networks:
       con-full-stack:
         #ipv4_address: 10.5.0.5
@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     ports:
       -  4200:4200
-    container_name: angular-java
+    container_name: angular-front
     networks:
       -  con-full-stack
     depends_on:
