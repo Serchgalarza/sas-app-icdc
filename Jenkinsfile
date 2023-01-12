@@ -14,6 +14,7 @@ pipeline{
         stage("Construction"){
             steps{
                 bat 'mvn clean install'
+                bat 'npm run coverage || exit 0'
             }
         }
 
@@ -29,7 +30,7 @@ pipeline{
         stage('Despliegue de Artifact') {
             steps {
                 echo 'Creation des artifacts'
-                archiveArtifacts artifacts: '*/users-0.0.1-SNAPSHOT.jar', 
+                archiveArtifacts artifacts: 'target/users-0.0.1-SNAPSHOT.jar', 
                    allowEmptyArchive: true,
                    fingerprint: true,
                    onlyIfSuccessful: true
@@ -48,6 +49,11 @@ pipeline{
             //bat 'docker compose ps -a'
             echo 'Buscamos los test'
             junit '**/**/*.xml'
+
+            publishCoverage (adapters: [coberturaAdapter(path : 'coverage/cobertura-coverage.xml', 
+            thresholds :  [//[thresholdTarget: 'Conditional', unhealthyThreshold: 0, unstableThreshold: 0],//Codiciones aue existen en un proyecto
+                          [thresholdTarget: 'Line', unhealthyThreshold: 85, unstableThreshold: 85],// Lineas de codigo por proyecto
+                          /*[thresholdTarget: 'Function', unhealthyThreshold: 85, unstableThreshold: 85]*/])])
         }
     }
 }
