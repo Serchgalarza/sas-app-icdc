@@ -41,7 +41,7 @@ pipeline{
             bat 'docker compose ps -a'
             bat 'docker compose down --remove-orphans -v'
             bat 'docker compose ps -a'
-            junit 'target/surefire-reports/*.xml || exit 0 '
+            junit(testResults: 'target/surefire-reports/*.xml', allowEmptyResults : true)
         }
     }
 }
