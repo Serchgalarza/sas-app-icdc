@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        /*stage("Verification des outils"){
+        stage("Verification des outils"){
             steps{
                 bat '''
                     docker version 
@@ -10,22 +10,22 @@ pipeline{
                     curl --version 
                 '''
             }
-        }*/
-        stage("Construction"){
+        }
+        stage("Deploiement"){
             steps{
                 bat 'mvn clean install'
-            }
-        }
-
-        stage("Demarrage du Docker"){
-            steps{
-                echo 'Pruebas docker'
                 bat 'docker system prune -a --volumes -f'
-                bat 'docker-compose up -d || exit 0'
             }
         }
 
-        stage('Despliegue de Artifact') {
+        stage("Demarrage de Docker"){
+            steps{
+                bat 'docker-compose up -d || exit 0'
+                bat 'docker compose ps -a'
+            }
+        }
+
+        stage('Deployment Artifact') {
             steps {
                 echo 'Creation des artifacts'
                 archiveArtifacts artifacts: 'target/users-0.0.1-SNAPSHOT.jar, src/main/ui/', 
@@ -34,13 +34,17 @@ pipeline{
                    onlyIfSuccessful: true
             }
         }
+
+        stage("Nettoyage de Docker"){
+            steps{
+                bat 'docker compose down --remove-orphans -v'
+                bat 'docker compose ps -a'
+            }
+        }
     }
 
     post {
         always {
-            bat 'docker compose ps -a'
-            bat 'docker compose down --remove-orphans -v'
-            bat 'docker compose ps -a'
             junit(testResults: 'target/surefire-reports/*.xml', allowEmptyResults : true)
         }
     }
