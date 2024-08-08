@@ -33,7 +33,6 @@ pipeline{
                    onlyIfSuccessful: true
             }
         }
-
         stage("Nettoyage de Docker"){
             steps{
                 sh 'docker compose down --remove-orphans -v'
@@ -41,7 +40,6 @@ pipeline{
             }
         }
     }
-
     post {
         always {
             junit(testResults: 'target/surefire-reports/*.xml', allowEmptyResults : true)
