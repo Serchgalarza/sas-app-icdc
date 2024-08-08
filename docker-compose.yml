@@ -6,11 +6,11 @@ services:
       context: ./docker
       dockerfile: Dockerfile
     ports:
-      - 9090:9090
+      - 8090:8090
     container_name: java-back
     networks:
       con-full-stack:
-        #ipv4_address: 10.5.0.5
+        ipv4_address: 10.5.0.5
     volumes:
       - ./api/src:/usr/app/src
 
@@ -19,7 +19,7 @@ services:
       context: ./src/main/ui
       dockerfile: Dockerfile
     ports:
-      -  4000:4000
+      -  4200:4200
     container_name: angular-front
     networks:
       -  con-full-stack
@@ -32,10 +32,10 @@ services:
 networks:
   con-full-stack:
     driver: bridge
-    #ipam:
-    #  config:
-     #   - subnet: 10.5.0.0/16
-      #    gateway: 10.5.0.1
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
 
 volumes:
   db_data: {}
