@@ -6,7 +6,7 @@ pipeline{
                 sh '''
                     docker version 
                     docker info
-                    docker compose version
+                    docker-compose version
                     curl --version 
                 '''
             }
@@ -21,7 +21,7 @@ pipeline{
         stage("Demarrage de Docker"){
             steps{
                 sh 'docker-compose up -d || exit 0'
-                sh 'docker compose ps -a'
+                sh 'docker-compose ps -a'
             }
         }
         stage('Deployment Artifact') {
