@@ -24,7 +24,6 @@ pipeline{
                 sh 'docker compose ps -a'
             }
         }
-
         stage('Deployment Artifact') {
             steps {
                 echo 'Creation des artifacts'
