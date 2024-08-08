@@ -4,7 +4,7 @@ pipeline{
     stages{
         stage("Verification des outils"){
             steps{
-                bat '''
+                sh '''
                     docker version 
                     docker info
                     docker compose version
@@ -14,15 +14,15 @@ pipeline{
         }
         stage("Deploiement"){
             steps{
-                bat 'mvn clean install'
-                bat 'docker system prune -a --volumes -f'
+                sh 'mvn clean install'
+                sh 'docker system prune -a --volumes -f'
             }
         }
 
         stage("Demarrage de Docker"){
             steps{
-                bat 'docker-compose up -d || exit 0'
-                bat 'docker compose ps -a'
+                sh 'docker-compose up -d || exit 0'
+                sh 'docker compose ps -a'
             }
         }
 
@@ -38,8 +38,8 @@ pipeline{
 
         stage("Nettoyage de Docker"){
             steps{
-                bat 'docker compose down --remove-orphans -v'
-                bat 'docker compose ps -a'
+                sh 'docker compose down --remove-orphans -v'
+                sh 'docker compose ps -a'
             }
         }
     }
