@@ -20,7 +20,9 @@ pipeline{
 
         stage("Demarrage de Docker"){
             steps{
+		echo "Iniciando el Docker Compose..."
                 sh 'docker-compose up -d || exit 0'
+		echo "Docker iniciado"
                 sh 'docker-compose ps -a'
             }
         }
