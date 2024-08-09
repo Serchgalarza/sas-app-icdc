@@ -35,12 +35,12 @@ pipeline{
                    onlyIfSuccessful: true
             }
         }
-        stage("Nettoyage de Docker"){
+        /*stage("Nettoyage de Docker"){
             steps{
-                //sh 'docker-compose down --remove-orphans -v'
-                //sh 'docker-compose ps -a'
+                sh 'docker-compose down --remove-orphans -v'
+                sh 'docker-compose ps -a'
             }
-        }
+        }*/
     }
     post {
         always {
